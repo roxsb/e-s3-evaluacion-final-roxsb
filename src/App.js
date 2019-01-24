@@ -10,7 +10,7 @@ class App extends Component {
 
     this.state = {
       results : [],
-      list: '',
+      nameFilter: '',
     };
 
     this.getSearch = this.getSearch.bind(this);
@@ -31,16 +31,16 @@ class App extends Component {
   }
 
   getSearch(event){
-    const listHP = event.currentTarget.value;
+    const nameFilterListHP = event.currentTarget.value;
     this.setState({
-      list : listHP
+      nameFilter : nameFilterListHP
     });
   }
   
   characterFilter(){
-    const filterItem = this.state.results.filter(item => {
-      const characterName = `${item.name}`;
-      if(characterName.includes(this.state.list)){
+    const {results, nameFilter} = this.state;
+    const filterItem = results.filter(item => {const characterName = `${item.name}`;
+      if(characterName.toUpperCase().includes(nameFilter.toUpperCase())){
         return true;
       }else{
         return false;
@@ -52,6 +52,7 @@ class App extends Component {
 //no podemos tener una función que toca el estado dentro del render. Todas las funciones que tocan el estado fuera del render
   render() {
     const listHPResult = this.characterFilter();
+    
     return (
       <div className="App">
         <header className="header">
