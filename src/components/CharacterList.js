@@ -9,11 +9,14 @@ class CharacterList extends Component {
       <ul className="main__list">
         {this.props.listHPResult.map(item => {
           return(
-            <li className="list__item" key={item.id}>
+            <li className="list__item" id={item.id} key={item.id}>
               <CharacterCard 
                 image = {item.image}
                 name = {item.name}
-                house = {item.house}            
+                house = {item.house === '' ? "sin casa :(" : item.house } 
+                yearOfBirth = {item.yearOfBirth}
+                patronus = {item.patronus}
+                alive = {item.alive}           
               />             
             </li>
           );

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
 import { getHPCharacterList } from './services/ListFetchService';
 import Filters from './components/Filters';
 import CharacterList from './components/CharacterList';
+import MoreDetailsCard from './components/MoreDetailsCard';
+import {Switch, Route} from 'react-router-dom';
+import './App.scss';
 
 
 class App extends Component {
@@ -11,7 +13,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      results : [],
+      characters : [],
       nameFilter: '',
     };
 
@@ -24,11 +26,10 @@ class App extends Component {
 
     getHPCharacterList()
     .then(data => {
-
       const newDataList = data.map( (item,key) => { return { ...item,id: key }});
       console.log(newDataList);
       this.setState({
-        results : newDataList       
+        characters : newDataList       
       });
     });
   }
@@ -41,8 +42,8 @@ class App extends Component {
   }
   
   characterFilter(){
-    const {results, nameFilter} = this.state;
-    const filterItem = results.filter(item => {const characterName = `${item.name}`;
+    const {characters, nameFilter} = this.state;
+    const filterItem = characters.filter(item => {const characterName = `${item.name}`;
       if(characterName.toUpperCase().includes(nameFilter.toUpperCase())){
         return true;
       }else{
@@ -52,20 +53,23 @@ class App extends Component {
     return filterItem;
   }
    
-//no podemos tener una función que toca el estado dentro del render. Todas las funciones que tocan el estado fuera del render
   render() {
     const listHPResult = this.characterFilter();
+    const {characters} = this.state;
     
     return (
       <div className="App">
-        <header className="header">
+        <header className="header"> 
           <h1 className="title">Lista de personajes de la Saga Harry Potter</h1>
-          <Filters onkeyUpAction = {this.getSearch} />
+          <Switch>
+            <Route exact path="/" render = {()=><Filters onkeyUpAction = {this.getSearch} />} />
+          </Switch>          
         </header>
-        <main className="main">
-          <div className="main__container">          
-            <CharacterList listHPResult = {listHPResult}/>            
-          </div>
+        <main className="main"> 
+          <Switch>
+            <Route exact path="/" render = {()=><CharacterList listHPResult = {listHPResult} />} />            
+            <Route path="/characterHP" render = {()=><MoreDetailsCard listHPResult = {characters} characterId={2} />} />                  
+          </Switch>          
         </main>
       </div>
     );
