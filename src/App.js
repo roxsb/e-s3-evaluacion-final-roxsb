@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getHPCharacterList } from './services/listCharacterFetch';
+import { getHPCharacterList } from './services/ListFetchService';
+import Filters from './components/Filters';
 
 
 class App extends Component {
@@ -60,7 +61,8 @@ class App extends Component {
         </header>
         <main className="main">
           <div className="main__container">
-            <input className="main__input" type="text" placeholder="Busca tu personaje favorito" onKeyUp = {this.getSearch}/>
+          <Filters onkeyUpAction = {this.getSearch} />
+            
             <ul className="main__list">
             {listHPResult.map(item => {
               return(
