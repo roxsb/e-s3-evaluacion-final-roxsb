@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import { getHPCharacter } from './services/characterFetch';
 
-const ENDPOINT = 'http://hp-api.herokuapp.com/api/characters';
 
 class App extends Component {
 
@@ -16,8 +16,7 @@ class App extends Component {
   }
 
   getCharacter(){
-    fetch(ENDPOINT)
-    .then(response => response.json())
+    getHPCharacter()
     .then(data => {
       console.log(data);
       this.setState({
@@ -38,13 +37,17 @@ class App extends Component {
           <div className="main__container">
             <input className="main__input" type="text"></input>
             <ul className="main__list">
+            {this.state.results.map(item => {
+              return(
               <li className="list__item">
-                <img src="item__picture" alt="" />
-                <h2 className="item__name"> </h2>
-                <p className="item__house"></p>
+                <img className="item__picture" src={item.image}  alt={item.name}/>
+                <h2 className="item__name">{item.name}</h2>
+                <p className="item__house">{item.house}</p>
                 <div className="item__moreinfo">
                 </div>
               </li>
+              );
+            })}
             </ul>
           </div>
         </main>
