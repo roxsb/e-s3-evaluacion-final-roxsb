@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-class CharacterCards extends Component {
-    render() {
-            
-        return (
-           <div></div> 
-        );
+class CharacterCard extends Component {
+  render() {
 
+    const {image, name, house} = this.props;  
+    
+    return (
+      <div className="item__card">
+        <img className="item__picture" src={image}  alt={name}/>
+        <h2 className="item__name">{name}</h2>
+        <p className="item__house">{house}</p>
+        <div className="item__moreinfo">
+        </div> 
+      </div>
+    );
+  }
 }
+
+CharacterCard.PropTypes = {
+  image : PropTypes.string.isRequired,
+  name : PropTypes.string.isRequired,
+  house : PropTypes.string.isRequired
 }
 
-
-export default CharacterCards;
+export default CharacterCard;

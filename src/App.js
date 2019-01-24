@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { getHPCharacterList } from './services/ListFetchService';
 import Filters from './components/Filters';
+import CharacterList from './components/CharacterList';
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
   }
 
   getCharacterList(){
+
     getHPCharacterList()
     .then(data => {
 
@@ -58,24 +60,11 @@ class App extends Component {
       <div className="App">
         <header className="header">
           <h1 className="title">Lista de personajes de la Saga Harry Potter</h1>
+          <Filters onkeyUpAction = {this.getSearch} />
         </header>
         <main className="main">
-          <div className="main__container">
-          <Filters onkeyUpAction = {this.getSearch} />
-            
-            <ul className="main__list">
-            {listHPResult.map(item => {
-              return(
-              <li className="list__item" key={item.id}>
-                <img className="item__picture" src={item.image}  alt={item.name}/>
-                <h2 className="item__name">{item.name}</h2>
-                <p className="item__house">{item.house}</p>
-                <div className="item__moreinfo">
-                </div>
-              </li>
-              );
-            })}
-            </ul>
+          <div className="main__container">          
+            <CharacterList listHPResult = {listHPResult}/>            
           </div>
         </main>
       </div>
