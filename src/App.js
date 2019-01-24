@@ -18,9 +18,11 @@ class App extends Component {
   getCharacter(){
     getHPCharacter()
     .then(data => {
-      console.log(data);
+
+      const newDataList = data.map( (item,key) => { return { ...item,id: key }});
+      console.log(newDataList);
       this.setState({
-        results : data       
+        results : newDataList       
       });
     });
   }
@@ -39,7 +41,7 @@ class App extends Component {
             <ul className="main__list">
             {this.state.results.map(item => {
               return(
-              <li className="list__item">
+              <li className="list__item" key={item.id}>
                 <img className="item__picture" src={item.image}  alt={item.name}/>
                 <h2 className="item__name">{item.name}</h2>
                 <p className="item__house">{item.house}</p>
