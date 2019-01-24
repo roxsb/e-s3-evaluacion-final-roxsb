@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getHPCharacter } from './services/characterFetch';
+import { getHPCharacterList } from './services/listCharacterFetch';
 
 
 class App extends Component {
@@ -9,14 +9,17 @@ class App extends Component {
     super(props);
 
     this.state = {
-      results : []
+      results : [],
+      list: '',
     };
 
-    this.getCharacter();
+    this.getSearch = this.getSearch.bind(this);
+
+    this.getCharacterList();
   }
 
-  getCharacter(){
-    getHPCharacter()
+  getCharacterList(){
+    getHPCharacterList()
     .then(data => {
 
       const newDataList = data.map( (item,key) => { return { ...item,id: key }});
@@ -26,10 +29,29 @@ class App extends Component {
       });
     });
   }
+
+  getSearch(event){
+    const listHP = event.currentTarget.value;
+    this.setState({
+      list : listHP
+    });
+  }
   
-
-
+  characterFilter(){
+    const filterItem = this.state.results.filter(item => {
+      const characterName = `${item.name}`;
+      if(characterName.includes(this.state.list)){
+        return true;
+      }else{
+        return false;
+      }  
+    });
+    return filterItem;
+  }
+   
+//no podemos tener una función que toca el estado dentro del render. Todas las funciones que tocan el estado fuera del render
   render() {
+    const listHPResult = this.characterFilter();
     return (
       <div className="App">
         <header className="header">
@@ -37,9 +59,9 @@ class App extends Component {
         </header>
         <main className="main">
           <div className="main__container">
-            <input className="main__input" type="text"></input>
+            <input className="main__input" type="text" placeholder="Busca tu personaje favorito" onKeyUp = {this.getSearch}/>
             <ul className="main__list">
-            {this.state.results.map(item => {
+            {listHPResult.map(item => {
               return(
               <li className="list__item" key={item.id}>
                 <img className="item__picture" src={item.image}  alt={item.name}/>
