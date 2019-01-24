@@ -23,7 +23,7 @@ class CharacterList extends Component {
   }
 }
 
-CharacterList.PropTypes = {
+CharacterList.propTypes = {
   listHPResult: PropTypes.array.isRequired
 } 
 

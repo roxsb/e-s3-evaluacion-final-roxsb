@@ -12,7 +12,7 @@ class Filters extends Component {
   }
 }
 
-Filters.PropTypes = {
+Filters.propTypes = {
   onkeyUpAction: PropTypes.func.isRequired
 }
 
