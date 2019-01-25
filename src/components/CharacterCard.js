@@ -9,8 +9,10 @@ class CharacterCard extends Component {
     return (
       <div className="item__card">
         <img className="item__picture" src={image}  alt={name}/>
-        <h2 className="item__name">{name}</h2>
-        <p className="item__house">{house}</p>        
+        <div className="item__dates">
+          <h2 className="item__name">{name}</h2>
+          <p className="item__house">{house}</p>        
+        </div>
       </div>
     );
   }
