@@ -5,7 +5,7 @@ class Filters extends Component {
   render() {
           
     return (
-      <div className="inpuṭ__container">
+      <div className="input__container">
         <input className="main__input" type="text" placeholder="Busca tu personaje favorito" onKeyUp = {this.props.onkeyUpAction}/>
       </div>
     );

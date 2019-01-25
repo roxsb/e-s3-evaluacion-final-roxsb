@@ -65,7 +65,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="header"> 
-          <h1 className="title">Lista de personajes de la Saga Harry Potter</h1>
+          <h1 className="title">Harry Potter Characters</h1>
           <Switch>
             <Route exact path="/" render = {()=><Filters onkeyUpAction = {this.getSearch} />} />
           </Switch>          
