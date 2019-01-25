@@ -32,7 +32,6 @@ class App extends Component {
     getHPCharacterList()
     .then(data => {
       const newDataList = data.map( (item,key) => { return { ...item,id: key }});
-      console.log(newDataList);
       this.setState({
         characters : newDataList       
       });
