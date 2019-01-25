@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CharacterCard from './CharacterCard';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 class CharacterList extends Component {
   render() {   
@@ -10,6 +11,7 @@ class CharacterList extends Component {
         {this.props.listHPResult.map(item => {
           return(
             <li className="list__item" id={item.id} key={item.id}>
+            <Link to={`/characterHP/${item.id}`} className="list__item-link">
               <CharacterCard 
                 image = {item.image}
                 name = {item.name}
@@ -17,7 +19,8 @@ class CharacterList extends Component {
                 yearOfBirth = {item.yearOfBirth}
                 patronus = {item.patronus}
                 alive = {item.alive}           
-              />             
+              /> 
+            </Link>              
             </li>
           );
         })}

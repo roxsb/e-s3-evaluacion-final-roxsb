@@ -7,6 +7,7 @@ import {Switch, Route} from 'react-router-dom';
 import './App.scss';
 
 
+
 class App extends Component {
 
   constructor(props) {
@@ -19,6 +20,10 @@ class App extends Component {
 
     this.getSearch = this.getSearch.bind(this);
 
+    this.getCharacterList();
+  }
+
+  componentDidMount(){
     this.getCharacterList();
   }
 
@@ -68,7 +73,7 @@ class App extends Component {
         <main className="main"> 
           <Switch>
             <Route exact path="/" render = {()=><CharacterList listHPResult = {listHPResult} />} />            
-            <Route path="/characterHP" render = {()=><MoreDetailsCard listHPResult = {characters} characterId={2} />} />                  
+            <Route path="/characterHP/:id" render = {props=><MoreDetailsCard match={props.match}listHPResult = {characters} characterId={2} />} />                  
           </Switch>          
         </main>
       </div>
